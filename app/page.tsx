@@ -88,6 +88,11 @@ export default function Home() {
         quality: 10,
       });
 
+      if (!palette || palette.length === 0) {
+        setError("No colors could be extracted from this image.");
+        return;
+      }
+
       const extractedColors = palette.map((color) => ({
         hex: color.hex(),
         rgb: color.rgb(),
@@ -205,11 +210,10 @@ export default function Home() {
       {/* Camera overlay */}
       <div
         aria-hidden={!isOpen}
-        className={`fixed inset-0 z-50 bg-black transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-          isOpen
+        className={`fixed inset-0 z-50 bg-black transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${isOpen
             ? "opacity-100 scale-100 visible"
             : "opacity-0 scale-95 invisible pointer-events-none"
-        }`}
+          }`}
       >
         <video
           ref={videoRef}
